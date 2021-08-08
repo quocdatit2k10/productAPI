@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * Contains method Product controller
@@ -34,7 +35,6 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<?> createOrUpdateProduct(@Valid @RequestBody Product product, BindingResult result) {
 
-
         ResponseEntity<?> mapError = mapValidationErrorService.MapValidationService(result);
         if ((mapError != null)) return mapError;
 
@@ -42,4 +42,26 @@ public class ProductController {
 
         return new ResponseEntity<Product>(doProduct, HttpStatus.OK);
     }
+
+    /**
+     * Gets all products or by name
+     * @param Product name
+     * @Return List product
+     */
+    @GetMapping("")
+    public Iterable<Product> getAllProducts(@RequestParam(required = false) String name) {
+
+        return productService.getListProduct(name);
+    }
+
+    /**
+     * Gets product by Id
+     * @Return Product
+     */
+    @GetMapping("/{productId}")
+    public Optional<Product> getProductById(@PathVariable String productId) {
+
+        return productService.getProductById(productId);
+    }
+
 }
