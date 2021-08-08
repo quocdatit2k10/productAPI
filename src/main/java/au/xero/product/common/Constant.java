@@ -17,6 +17,7 @@ public class Constant {
         public static final String NOT_FOUND = "product.notFound";
         public static final String NO_DATA = "product.noData";
         public static final String MUST_NUMBER = "product.mustNumber";
+        public static final String DELETE = "product.delete";
     }
 
     /**

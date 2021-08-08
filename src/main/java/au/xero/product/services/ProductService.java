@@ -9,7 +9,7 @@ import au.xero.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,19 +48,15 @@ public class ProductService {
      * @param name
      * @return list product
      */
-    public Iterable<Product> getListProduct(String name) {
+    public List<Product> getListProduct(String name) {
 
-        Iterable<Product> listProduct;
+        List<Product> listProduct;
         try {
             if (name != null) {
                 listProduct = productRepository.findByName(name);
             }
             else {
                 listProduct = productRepository.findAll();
-            }
-
-            if (((ArrayList) listProduct).size() == 0) {
-                throw new Message(PropertiesUtil.getProperty(Constant.product.NO_DATA));
             }
 
             return listProduct;
@@ -77,18 +73,32 @@ public class ProductService {
      */
     public Optional<Product> getProductById(String id) {
 
+        Optional<Product> product;
         try {
             if(!Validation.isNumeric(id)) {
                 throw new Message(PropertiesUtil.getProperty(Constant.product.MUST_NUMBER, new Object[] {id}));
             }
-            Optional<Product> product = productRepository.findById(Long.parseLong(id));
-            if (!product.isPresent()) {
-                throw new Message(PropertiesUtil.getProperty(Constant.product.NOT_FOUND, new Object[] {id}));
-            }
+            product = productRepository.findById(Long.parseLong(id));
             return product;
         } catch (Exception ex) {
             throw new Message(ex.getMessage());
         }
+    }
+
+    /**
+     * Delete product by Id
+     * @param  product
+     * @return Status
+     */
+    public void deleteProduct(Product product) {
+
+        try {
+            productRepository.delete(product);
+
+        } catch (Exception ex) {
+            throw new Message(ex.getMessage());
+        }
+
     }
 
 }
