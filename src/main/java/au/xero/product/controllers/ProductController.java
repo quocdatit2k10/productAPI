@@ -43,9 +43,14 @@ public class ProductController {
             ResponseEntity<?> mapError = mapValidationErrorService.MapValidationService(result);
             if ((mapError != null)) return mapError;
 
+            String mgs = PropertiesUtil.getProperty(Constant.product.CREATE);
+            if(product.getId() != null) {
+                mgs = PropertiesUtil.getProperty(
+                        Constant.product.UPDATE, new Object[] {product.getId()});
+            }
             Product doProduct = productService.saveOrUpdateProduct(product);
 
-            return ResponseHandler.generateResponse(null, HttpStatus.OK, doProduct);
+            return ResponseHandler.generateResponse(mgs, HttpStatus.OK, doProduct);
 
         } catch (Exception ex) {
 
