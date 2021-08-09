@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface ProductOptionRepository extends CrudRepository<ProductOption, Long> {
 
-    ProductOption findById(UUID id);
+    ProductOption findByIdAndProductId(UUID id, UUID productId);
 
     List<ProductOption> findByProductId(UUID productId);
 }

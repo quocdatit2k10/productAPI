@@ -6,7 +6,6 @@ import au.xero.product.common.PropertiesUtil;
 import au.xero.product.dto.Product;
 import au.xero.product.dto.ProductOption;
 import au.xero.product.repositories.ProductOptionRepository;
-import au.xero.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +19,6 @@ import static au.xero.product.Validations.Validation.isUUID;
  */
 @Service
 public class ProductOptionService {
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private ProductService productService;
@@ -71,10 +67,11 @@ public class ProductOptionService {
             // Check product option id is exist or not
             if(productOptionId != null) {
                 // Check product Id exist or not
-                ProductOption checkProductOptionExist = getProductOptionById(productOptionId);
+                ProductOption checkProductOptionExist = getProductOptionByIdAndProductId(productId, productOptionId);
                 // If product id dose not exist
                 if (checkProductOptionExist.equals(null)) {
-                    throw new Message(PropertiesUtil.getProperty(Constant.productOption.NOT_FOUND, new Object[] {productOptionId}));
+                    throw new Message(PropertiesUtil.getProperty(
+                            Constant.productOption.NOT_FOUND, new Object[] {productOptionId, productId}));
                 }
             }
             productOption.setProductId(product.getId());
@@ -87,51 +84,30 @@ public class ProductOptionService {
         }
     }
 
-
     /**
-     * Find product option by Id
-     * @param id
-     * @return Product option
-     */
-    public ProductOption getProductOptionById(String id) {
-
-        try {
-            // Check is UUID
-            if (!isUUID(id)) {
-                throw new Message(PropertiesUtil.getProperty(Constant.productOption.CHECK_FORMAT_UUID));
-            }
-            ProductOption productOption = productOptionRepository.findById(UUID.fromString(id));
-
-            if (productOption == null) {
-                throw new Message(PropertiesUtil.getProperty(
-                        Constant.productOption.NOT_FOUND, new Object[] {id}));
-            }
-            // Return product option
-            return productOption;
-        } catch (Exception ex) {
-
-            throw new Message(ex.getMessage());
-        }
-    }
-
-    /**
-     * Find product option by Id
+     * Find product option by Id and Product id
      * @param productId
      * @param ProductOptionId
      * @return Product option
      */
-    public ProductOption getProductOptionById(String productId, String ProductOptionId) {
+    public ProductOption getProductOptionByIdAndProductId(String productId, String ProductOptionId) {
 
         try {
 
             // Check product id exist or not
             Product product = productService.getProductById(productId);
 
-            ProductOption productOption = getProductOptionById(ProductOptionId);
+            // Check is UUID
+            if (!isUUID(ProductOptionId)) {
+                throw new Message(PropertiesUtil.getProperty(Constant.productOption.CHECK_FORMAT_UUID));
+            }
+
+            ProductOption productOption = productOptionRepository
+                    .findByIdAndProductId(UUID.fromString(ProductOptionId), product.getId());
 
             if (productOption == null) {
                 throw new Message(PropertiesUtil.getProperty(
-                        Constant.productOption.NOT_FOUND, new Object[] {ProductOptionId}));
+                        Constant.productOption.NOT_FOUND, new Object[] {ProductOptionId, productId}));
             }
             // Return product option
             return productOption;

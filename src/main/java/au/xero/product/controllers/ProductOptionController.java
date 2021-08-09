@@ -1,14 +1,11 @@
 package au.xero.product.controllers;
 
 import au.xero.product.common.Constant;
-import au.xero.product.common.Message;
 import au.xero.product.common.PropertiesUtil;
 import au.xero.product.common.ResponseHandler;
-import au.xero.product.dto.Product;
 import au.xero.product.dto.ProductOption;
 import au.xero.product.services.MapValidationErrorService;
 import au.xero.product.services.ProductOptionService;
-import au.xero.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +27,6 @@ public class ProductOptionController {
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
-
-    @Autowired
-    private ProductService productService;
 
     /**
      * Create product option
@@ -131,12 +125,12 @@ public class ProductOptionController {
      * @Return List product option
      */
     @GetMapping("/{productId}/options/{productOptionId}")
-    public ResponseEntity<Object> getProductOptionById(@PathVariable String productId,
+    public ResponseEntity<Object> getProductOptionByIdAndProductId(@PathVariable String productId,
                                                       @PathVariable String productOptionId) {
 
         try {
             // Get list all product option by product id
-            ProductOption result = productOptionService.getProductOptionById(productId, productOptionId);
+            ProductOption result = productOptionService.getProductOptionByIdAndProductId(productId, productOptionId);
 
             // If size list is zero return message no data
             if (result == null) {
@@ -161,7 +155,7 @@ public class ProductOptionController {
 
         try {
             // Get list all product option by product id
-            ProductOption result = productOptionService.getProductOptionById(productId, productOptionId);
+            ProductOption result = productOptionService.getProductOptionByIdAndProductId(productId, productOptionId);
 
             //Delete product option
             productOptionService.deleteProductOption(result);
