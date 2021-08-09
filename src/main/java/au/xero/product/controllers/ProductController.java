@@ -60,7 +60,6 @@ public class ProductController {
             return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-
     }
 
     /**

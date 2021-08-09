@@ -4,38 +4,39 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
- * Entity product
+ * Entity product option
  */
 @Entity
-public class Product {
+public class ProductOption {
 
     @Id
     @GeneratedValue
     @Type(type="org.hibernate.type.UUIDCharType")
     @Column(updatable = false, nullable = false)
     private UUID id;
+
+    // ManyToOne with product
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    @JoinColumn(name="product", updatable = false, nullable = false)
+//    @JsonIgnore
+//    private Product product;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    @JoinColumn(name="product_id", updatable = false, nullable = false)
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(updatable = false, nullable = false)
+    private UUID productId;
     @NotNull
     private String name;
     private String description;
-    private BigDecimal price;
-    private BigDecimal deliveryPrice;
     @Column(updatable = false)
     private Date created_At;
     private Date updated_At;
 
-    //OneToMany product option
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-//    private List<ProductOption> productOption = new ArrayList<>();
-
-    public Product() {
+    public ProductOption() {
     }
 
     public UUID getId() {
@@ -44,6 +45,22 @@ public class Product {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
+
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public void setProductId(UUID productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -60,23 +77,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        if (price != null)
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
-    }
-
-    public BigDecimal getDeliveryPrice() {
-        return deliveryPrice;
-    }
-
-    public void setDeliveryPrice(BigDecimal deliveryPrice) {
-        this.deliveryPrice = deliveryPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
     public Date getCreated_At() {
@@ -105,11 +105,15 @@ public class Product {
         this.updated_At = new Date();
     }
 
-//    public List<ProductOption> getProductOption() {
-//        return productOption;
-//    }
-//
-//    public void setProductOption(List<ProductOption> productOption) {
-//        this.productOption = productOption;
-//    }
+    @Override
+    public String toString() {
+        return "ProductOption{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", created_At=" + created_At +
+                ", updated_At=" + updated_At +
+                '}';
+    }
 }

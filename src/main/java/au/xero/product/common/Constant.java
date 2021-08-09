@@ -29,6 +29,14 @@ public class Constant {
     public static class productOption {
         private productOption() {
         }
+
+        public static final String NOT_FOUND = "product.option.notFound";
+        public static final String NO_DATA = "product.option.noData";
+        public static final String MUST_NUMBER = "product.option.mustNumber";
+        public static final String CREATE = "product.option.create";
+        public static final String UPDATE = "product.option.update";
+        public static final String DELETE = "product.option.delete";
+        public static final String CHECK_FORMAT_UUID = "product.option.uuid";
     }
 
 

@@ -1,6 +1,5 @@
 package au.xero.product.services;
 
-import au.xero.product.Validations.Validation;
 import au.xero.product.common.Constant;
 import au.xero.product.common.Message;
 import au.xero.product.common.PropertiesUtil;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static au.xero.product.Validations.Validation.isUUID;
@@ -45,6 +43,7 @@ public class ProductService {
             // Create or update product
             return productRepository.save(product);
         } catch (Exception ex) {
+
             throw new Message(ex.getMessage());
         }
     }
@@ -111,8 +110,8 @@ public class ProductService {
         try {
             // Delete product
             productRepository.delete(product);
-
         } catch (Exception ex) {
+
             throw new Message(ex.getMessage());
         }
 
