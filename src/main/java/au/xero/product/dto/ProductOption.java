@@ -23,18 +23,13 @@ public class ProductOption {
     // ManyToOne with product
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="product_id", insertable=false, updatable=false)
-//    @JoinColumn(name="productId",referencedColumnName="product_id")
     @JsonIgnore
     private Product product;
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-//    @JoinColumn(name="product", updatable = false, nullable = false)
-//    @JsonIgnore
-//    private Product product;
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-//    @JoinColumn(name="product_id", updatable = false, nullable = false)
+
     @Type(type="org.hibernate.type.UUIDCharType")
     @Column(name = "product_id", updatable = false, nullable = false)
     private UUID productId;
+
     @NotNull
     private String name;
     private String description;

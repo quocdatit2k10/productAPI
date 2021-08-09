@@ -1,7 +1,6 @@
 package au.xero.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

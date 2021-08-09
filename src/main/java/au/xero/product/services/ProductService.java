@@ -47,15 +47,11 @@ public class ProductService {
     public Product updateProduct(Product product, String productId) {
 
         try {
-            Product getProduct;
-            // Check exist Id
-            if(productId != null) {
-                // Check product Id exist or not
-                getProduct = getProductById(productId);
-                // If product id dose not exist
-                if (getProduct.equals(null)) {
-                    throw new Message(PropertiesUtil.getProperty(Constant.product.NOT_FOUND, new Object[] {productId}));
-                }
+            // Check product Id exist or not
+            Product getProduct = getProductById(productId);
+            // If product id dose not exist
+            if (getProduct.equals(null)) {
+                throw new Message(PropertiesUtil.getProperty(Constant.product.NOT_FOUND, new Object[] {productId}));
             }
             // Update product
             product.setId(UUID.fromString(productId));
