@@ -74,7 +74,8 @@ public class ProductOptionService {
                             Constant.productOption.NOT_FOUND, new Object[] {productOptionId, productId}));
                 }
             }
-            productOption.setProductId(product.getId());
+            productOption.setProductId(UUID.fromString(productId));
+            productOption.setId(UUID.fromString(productOptionId));
             // Create or update product option
             return productOptionRepository.save(productOption);
 

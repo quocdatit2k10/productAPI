@@ -1,5 +1,6 @@
 package au.xero.product.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -20,6 +21,11 @@ public class ProductOption {
     private UUID id;
 
     // ManyToOne with product
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="product_id", insertable=false, updatable=false)
+//    @JoinColumn(name="productId",referencedColumnName="product_id")
+    @JsonIgnore
+    private Product product;
 //    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 //    @JoinColumn(name="product", updatable = false, nullable = false)
 //    @JsonIgnore
@@ -27,7 +33,7 @@ public class ProductOption {
 //    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 //    @JoinColumn(name="product_id", updatable = false, nullable = false)
     @Type(type="org.hibernate.type.UUIDCharType")
-    @Column(updatable = false, nullable = false)
+    @Column(name = "product_id", updatable = false, nullable = false)
     private UUID productId;
     @NotNull
     private String name;
@@ -47,13 +53,13 @@ public class ProductOption {
         this.id = id;
     }
 
-//    public Product getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public UUID getProductId() {
         return productId;

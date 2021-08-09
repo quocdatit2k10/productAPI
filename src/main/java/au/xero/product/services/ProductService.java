@@ -47,7 +47,7 @@ public class ProductService {
     public Product updateProduct(Product product, String productId) {
 
         try {
-            Product getProduct = new Product();
+            Product getProduct;
             // Check exist Id
             if(productId != null) {
                 // Check product Id exist or not
@@ -58,7 +58,7 @@ public class ProductService {
                 }
             }
             // Update product
-            product.setId(getProduct.getId());
+            product.setId(UUID.fromString(productId));
             return productRepository.save(product);
         } catch (Exception ex) {
 

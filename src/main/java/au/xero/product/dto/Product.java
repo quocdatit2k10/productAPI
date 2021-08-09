@@ -1,5 +1,7 @@
 package au.xero.product.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -32,8 +34,10 @@ public class Product {
     private Date updated_At;
 
     //OneToMany product option
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-//    private List<ProductOption> productOption = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
+    private List<ProductOption> productOption = new ArrayList<>();
+
 
     public Product() {
     }
@@ -105,11 +109,11 @@ public class Product {
         this.updated_At = new Date();
     }
 
-//    public List<ProductOption> getProductOption() {
-//        return productOption;
-//    }
-//
-//    public void setProductOption(List<ProductOption> productOption) {
-//        this.productOption = productOption;
-//    }
+    public List<ProductOption> getProductOption() {
+        return productOption;
+    }
+
+    public void setProductOption(List<ProductOption> productOption) {
+        this.productOption = productOption;
+    }
 }
