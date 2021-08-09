@@ -20,6 +20,7 @@ public class Constant {
         public static final String CREATE = "product.create";
         public static final String UPDATE = "product.update";
         public static final String DELETE = "product.delete";
+        public static final String CHECK_FORMAT_UUID = "product.uuid";
     }
 
     /**

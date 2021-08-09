@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Contains method Product controller
  */
 @RestController
 @RequestMapping("/products")
-@CrossOrigin
 public class ProductController {
 
     @Autowired
@@ -40,16 +38,21 @@ public class ProductController {
     public ResponseEntity<?> createOrUpdateProduct(@Valid @RequestBody Product product, BindingResult result) {
 
         try {
+            // Check error of setting DTO
             ResponseEntity<?> mapError = mapValidationErrorService.MapValidationService(result);
             if ((mapError != null)) return mapError;
 
+            // Generate message of create and update
             String mgs = PropertiesUtil.getProperty(Constant.product.CREATE);
+            // If is update
             if(product.getId() != null) {
                 mgs = PropertiesUtil.getProperty(
                         Constant.product.UPDATE, new Object[] {product.getId()});
             }
+            // Action create or update
             Product doProduct = productService.saveOrUpdateProduct(product);
 
+            // Return result action
             return ResponseHandler.generateResponse(mgs, HttpStatus.OK, doProduct);
 
         } catch (Exception ex) {
@@ -69,13 +72,16 @@ public class ProductController {
     public ResponseEntity<Object> getAllProducts(@RequestParam(required = false) String name) {
 
         try {
+            // Get list product all or by name
             List<Product> result = productService.getListProduct(name);
 
+            // If size list is zero return message no data
             if ((result).size() == 0) {
                 return ResponseHandler.generateResponse(PropertiesUtil.getProperty(Constant.product.NO_DATA), HttpStatus.OK);
             }
-            return ResponseHandler.generateResponse(null, HttpStatus.OK, result);
 
+            // Return list product
+            return ResponseHandler.generateResponse(null, HttpStatus.OK, result);
 
         } catch (Exception ex) {
 
@@ -92,15 +98,10 @@ public class ProductController {
     public ResponseEntity<Object> getProductById(@PathVariable String productId) {
 
         try {
-            Optional<Product> result = productService.getProductById(productId);
-
-            if (!result.isPresent()) {
-                return ResponseHandler.generateResponse(PropertiesUtil.getProperty(
-                        Constant.product.NOT_FOUND, new Object[] {productId}), HttpStatus.OK);
-            }
-
+            // Find product by id
+            Product result = productService.getProductById(productId);
+            // Return product
             return ResponseHandler.generateResponse(null, HttpStatus.OK, result);
-
 
         } catch (Exception ex) {
 
@@ -116,13 +117,10 @@ public class ProductController {
     public ResponseEntity<?> deleteProject(@PathVariable String productId) {
 
         try {
-            Optional<Product> product = productService.getProductById(productId);
-
-            if (!product.isPresent()) {
-                return ResponseHandler.generateResponse(PropertiesUtil.getProperty(
-                        Constant.product.NOT_FOUND, new Object[] {productId}), HttpStatus.OK);
-            }
-            productService.deleteProduct(product.orElseGet(null));
+            // Find product by id
+            Product result = productService.getProductById(productId);
+            //Delete product by id
+            productService.deleteProduct(result);
             return ResponseHandler.generateResponse((
                     PropertiesUtil.getProperty(Constant.product.DELETE, new Object[] {productId})), HttpStatus.OK);
         } catch (Exception ex) {

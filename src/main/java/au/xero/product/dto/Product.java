@@ -1,10 +1,14 @@
 package au.xero.product.dto;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Entity product
@@ -12,9 +16,17 @@ import java.util.Date;
 @Entity
 public class Product {
 
+//    @Id
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(
+//            name = "UUID",
+//            strategy = "org.hibernate.id.UUIDGenerator"
+//    )
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(updatable = false, nullable = false)
+    private UUID id;
     @NotNull
     private String name;
     private String description;
@@ -27,11 +39,11 @@ public class Product {
     public Product() {
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

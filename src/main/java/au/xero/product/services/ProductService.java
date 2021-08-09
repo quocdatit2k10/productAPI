@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import static au.xero.product.Validations.Validation.isUUID;
 
 /**
  * Contains method Product service
@@ -30,13 +33,16 @@ public class ProductService {
 
         try {
             // Check exist Id
-            Long productId = product.getId();
+            UUID productId = product.getId();
             if(productId != null) {
-                Optional<Product>  checkProductExist = productRepository.findById(productId);
-                if (!checkProductExist.isPresent()) {
+                // Check product Id exist or not
+                Product checkProductExist = getProductById(productId.toString());
+                // If product id dose not exist
+                if (checkProductExist.equals(null)) {
                     throw new Message(PropertiesUtil.getProperty(Constant.product.NOT_FOUND, new Object[] {productId}));
                 }
             }
+            // Create or update product
             return productRepository.save(product);
         } catch (Exception ex) {
             throw new Message(ex.getMessage());
@@ -52,15 +58,18 @@ public class ProductService {
 
         List<Product> listProduct;
         try {
+            // If name is not null then find by name
             if (name != null) {
                 listProduct = productRepository.findByName(name);
             }
+            // Find all
             else {
                 listProduct = productRepository.findAll();
             }
 
             return listProduct;
         } catch (Exception ex) {
+
             throw new Message(ex.getMessage());
         }
     }
@@ -71,16 +80,23 @@ public class ProductService {
      * @param id
      * @return Product
      */
-    public Optional<Product> getProductById(String id) {
+    public Product getProductById(String id) {
 
-        Optional<Product> product;
         try {
-            if(!Validation.isNumeric(id)) {
-                throw new Message(PropertiesUtil.getProperty(Constant.product.MUST_NUMBER, new Object[] {id}));
+            // Check is UUID
+            if (!isUUID(id)) {
+                throw new Message(PropertiesUtil.getProperty(Constant.product.CHECK_FORMAT_UUID));
             }
-            product = productRepository.findById(Long.parseLong(id));
+            Product product = productRepository.findById(UUID.fromString(id));
+
+            if (product == null) {
+                throw new Message(PropertiesUtil.getProperty(
+                        Constant.product.NOT_FOUND, new Object[] {id}));
+            }
+            // Return product
             return product;
         } catch (Exception ex) {
+
             throw new Message(ex.getMessage());
         }
     }
@@ -93,6 +109,7 @@ public class ProductService {
     public void deleteProduct(Product product) {
 
         try {
+            // Delete product
             productRepository.delete(product);
 
         } catch (Exception ex) {
