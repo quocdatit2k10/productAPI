@@ -39,5 +39,21 @@ public class Constant {
         public static final String CHECK_FORMAT_UUID = "product.option.uuid";
     }
 
+    /**
+     * Declare constant table user and authentication
+     */
+    public static class user {
+        private user() {
+        }
+
+        public static final String AUTHEN_USERNAME = "authentication.username";
+        public static final String AUTHEN_PASSWORD = "authentication.password";
+        public static final String USER_EXIST = "user.exist";
+        public static final String USER_CREATE = "user.create";
+        public static final String USER_MAXLEGTH = "user.error.maxlength";
+        public static final String USER_CONFIRM_PASSWORD = "user.error.password.confirm";
+
+    }
+
 
 }
