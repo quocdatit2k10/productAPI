@@ -29,13 +29,44 @@ public class ProductController {
     private MapValidationErrorService mapValidationErrorService;
 
     /**
-     * Create or update product
+     * Create product
      * @param product
      * @param result
      * @return Result product entity
      */
     @PostMapping("")
-    public ResponseEntity<?> createOrUpdateProduct(@Valid @RequestBody Product product, BindingResult result) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult result) {
+
+        try {
+            // Check error of setting DTO
+            ResponseEntity<?> mapError = mapValidationErrorService.MapValidationService(result);
+            if ((mapError != null)) return mapError;
+
+            // Generate message of create
+            String mgs = PropertiesUtil.getProperty(Constant.product.CREATE);
+
+            // Action create
+            Product doProduct = productService.createProduct(product);
+
+            // Return result action
+            return ResponseHandler.generateResponse(mgs, HttpStatus.OK, doProduct);
+
+        } catch (Exception ex) {
+
+            return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    /**
+     * Update product
+     * @param product
+     * @param result
+     * @return Result product entity
+     */
+    @PutMapping("/{productId}")
+    public ResponseEntity<?> updateProduct(@Valid @RequestBody Product product,
+                                           @PathVariable String productId, BindingResult result) {
 
         try {
             // Check error of setting DTO
@@ -43,14 +74,10 @@ public class ProductController {
             if ((mapError != null)) return mapError;
 
             // Generate message of create and update
-            String mgs = PropertiesUtil.getProperty(Constant.product.CREATE);
-            // If is update
-            if(product.getId() != null) {
-                mgs = PropertiesUtil.getProperty(
-                        Constant.product.UPDATE, new Object[] {product.getId()});
-            }
-            // Action create or update
-            Product doProduct = productService.saveOrUpdateProduct(product);
+            String mgs = PropertiesUtil.getProperty(
+                    Constant.product.UPDATE, new Object[] {productId});
+            // Action update
+            Product doProduct = productService.updateProduct(product, productId);
 
             // Return result action
             return ResponseHandler.generateResponse(mgs, HttpStatus.OK, doProduct);

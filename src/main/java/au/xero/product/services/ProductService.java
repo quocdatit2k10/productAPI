@@ -23,24 +23,42 @@ public class ProductService {
     private ProductRepository productRepository;
 
     /**
+     * Create update product
+     * @param product Dto
+     * @return Result create table Product
+     */
+    public Product createProduct(Product product) {
+
+        try {
+            // Create product
+            return productRepository.save(product);
+        } catch (Exception ex) {
+
+            throw new Message(ex.getMessage());
+        }
+    }
+
+
+    /**
      * Create and update product
      * @param product Dto
      * @return Result create or update table Product
      */
-    public Product saveOrUpdateProduct(Product product) {
+    public Product updateProduct(Product product, String productId) {
 
         try {
+            Product getProduct = new Product();
             // Check exist Id
-            UUID productId = product.getId();
             if(productId != null) {
                 // Check product Id exist or not
-                Product checkProductExist = getProductById(productId.toString());
+                getProduct = getProductById(productId);
                 // If product id dose not exist
-                if (checkProductExist.equals(null)) {
+                if (getProduct.equals(null)) {
                     throw new Message(PropertiesUtil.getProperty(Constant.product.NOT_FOUND, new Object[] {productId}));
                 }
             }
-            // Create or update product
+            // Update product
+            product.setId(getProduct.getId());
             return productRepository.save(product);
         } catch (Exception ex) {
 
