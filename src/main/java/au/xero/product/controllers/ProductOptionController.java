@@ -1,12 +1,14 @@
 package au.xero.product.controllers;
 
 import au.xero.product.common.Constant;
+import au.xero.product.common.Message;
 import au.xero.product.common.PropertiesUtil;
 import au.xero.product.common.ResponseHandler;
 import au.xero.product.dto.Product;
 import au.xero.product.dto.ProductOption;
 import au.xero.product.services.MapValidationErrorService;
 import au.xero.product.services.ProductOptionService;
+import au.xero.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Contains method product option
@@ -27,6 +30,9 @@ public class ProductOptionController {
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
+
+    @Autowired
+    private ProductService productService;
 
     /**
      * Create product option
@@ -90,5 +96,81 @@ public class ProductOptionController {
 
             return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     * Gets all products option by product id
+     * @param  productId
+     * @Return List product option
+     */
+    @GetMapping("/{productId}/options")
+    public ResponseEntity<Object> getAllProductOption(@PathVariable String productId) {
+
+        try {
+            // Get list all product option by product id
+            List<ProductOption> result = productOptionService.getListProductOption(productId);
+
+            // If size list is zero return message no data
+            if ((result).size() == 0) {
+                return ResponseHandler.generateResponse(PropertiesUtil.getProperty(Constant.productOption.NO_DATA), HttpStatus.OK);
+            }
+            // Return list product option
+            return ResponseHandler.generateResponse(null, HttpStatus.OK, result);
+
+        } catch (Exception ex) {
+
+            return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+
+        }
+    }
+
+    /**
+     * Gets all products option by product id and product option id
+     * @param  productId
+     * @param  productOptionId
+     * @Return List product option
+     */
+    @GetMapping("/{productId}/options/{productOptionId}")
+    public ResponseEntity<Object> getProductOptionById(@PathVariable String productId,
+                                                      @PathVariable String productOptionId) {
+
+        try {
+            // Get list all product option by product id
+            ProductOption result = productOptionService.getProductOptionById(productId, productOptionId);
+
+            // If size list is zero return message no data
+            if (result == null) {
+                return ResponseHandler.generateResponse(PropertiesUtil.getProperty(Constant.productOption.NO_DATA), HttpStatus.OK);
+            }
+            // Return list product option
+            return ResponseHandler.generateResponse(null, HttpStatus.OK, result);
+
+        } catch (Exception ex) {
+
+            return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+
+        }
+    }
+
+    /**
+     * Delete product option by Id
+     */
+    @DeleteMapping("/{productId}/options/{productOptionId}")
+    public ResponseEntity<?> deleteProductOption(@PathVariable String productId,
+                                           @PathVariable String productOptionId) {
+
+        try {
+            // Get list all product option by product id
+            ProductOption result = productOptionService.getProductOptionById(productId, productOptionId);
+
+            //Delete product option
+            productOptionService.deleteProductOption(result);
+            return ResponseHandler.generateResponse((
+                    PropertiesUtil.getProperty(Constant.productOption.DELETE, new Object[] {productOptionId})), HttpStatus.OK);
+        } catch (Exception ex) {
+
+            return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import au.xero.product.dto.ProductOption;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,4 +14,6 @@ import java.util.UUID;
 public interface ProductOptionRepository extends CrudRepository<ProductOption, Long> {
 
     ProductOption findById(UUID id);
+
+    List<ProductOption> findByProductId(UUID productId);
 }

@@ -140,7 +140,7 @@ public class ProductController {
      * Delete product by Id
      */
     @DeleteMapping("/{productId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable String productId) {
 
         try {
             // Find product by id
