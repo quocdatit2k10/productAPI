@@ -1,6 +1,6 @@
 package au.xero.product.repositories;
 
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

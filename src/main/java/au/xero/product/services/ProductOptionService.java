@@ -3,8 +3,8 @@ package au.xero.product.services;
 import au.xero.product.common.Constant;
 import au.xero.product.common.Message;
 import au.xero.product.common.PropertiesUtil;
-import au.xero.product.dto.Product;
-import au.xero.product.dto.ProductOption;
+import au.xero.product.models.Product;
+import au.xero.product.models.ProductOption;
 import au.xero.product.repositories.ProductOptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
-import static au.xero.product.Validations.Validation.isUUID;
+import static au.xero.product.validations.Validation.isUUID;
 
 /**
  * Contains method Product option service

@@ -1,9 +1,7 @@
-package au.xero.product.Validations;
+package au.xero.product.validations;
 
-import au.xero.product.dto.User;
-import org.springframework.stereotype.Component;
+import au.xero.product.models.User;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 import java.util.UUID;
 

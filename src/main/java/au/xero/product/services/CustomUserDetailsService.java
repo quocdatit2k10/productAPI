@@ -1,6 +1,6 @@
 package au.xero.product.services;
 
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import au.xero.product.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

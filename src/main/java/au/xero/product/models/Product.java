@@ -1,4 +1,4 @@
-package au.xero.product.dto;
+package au.xero.product.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;

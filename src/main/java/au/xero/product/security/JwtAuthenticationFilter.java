@@ -1,7 +1,7 @@
 package au.xero.product.security;
 
 import au.xero.product.common.Constant;
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import au.xero.product.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

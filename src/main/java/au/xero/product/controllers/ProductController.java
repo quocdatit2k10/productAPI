@@ -3,7 +3,7 @@ package au.xero.product.controllers;
 import au.xero.product.common.Constant;
 import au.xero.product.common.PropertiesUtil;
 import au.xero.product.common.ResponseHandler;
-import au.xero.product.dto.Product;
+import au.xero.product.models.Product;
 import au.xero.product.services.MapValidationErrorService;
 import au.xero.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

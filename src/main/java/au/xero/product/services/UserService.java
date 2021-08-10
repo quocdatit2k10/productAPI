@@ -3,7 +3,7 @@ package au.xero.product.services;
 import au.xero.product.common.Constant;
 import au.xero.product.common.Message;
 import au.xero.product.common.PropertiesUtil;
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import au.xero.product.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

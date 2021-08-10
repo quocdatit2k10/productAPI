@@ -1,7 +1,7 @@
 package au.xero.product.security;
 
 import au.xero.product.common.Constant;
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

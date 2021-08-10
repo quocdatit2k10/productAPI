@@ -4,7 +4,7 @@ package au.xero.product.controllers;
 import au.xero.product.common.Constant;
 import au.xero.product.common.PropertiesUtil;
 import au.xero.product.common.ResponseHandler;
-import au.xero.product.dto.User;
+import au.xero.product.models.User;
 import au.xero.product.payload.JWTLoginSuccessResponse;
 import au.xero.product.payload.LoginRequest;
 import au.xero.product.security.JwtTokenProvider;
