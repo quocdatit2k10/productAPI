@@ -35,16 +35,17 @@ API endpoints:
 
 ## Introduction source code
 ```
-1. common - contains Constant and error/message handler
-2. controllers - contains actions
-3. models - contains table
-4. payload - checks login information and responses token
-5. repositories - queries SQL
-6. security - checks authentication
-7. services - contains services
-8. validations - validates
+1. main/../common - contains Constant and error/message handler
+2. main/../controllers - contains actions
+3. main/../models - contains table
+4. main/../payload - checks login information and responses token
+5. main/../repositories - queries SQL
+6. main/../security - checks authentication
+7. main/../services - contains services
+8. main/../validations - validates
 9. resources/application.properties - config database
 10. resources/message.properties - config message
+11. sql - contains file sql
 ```
 
 ##Deploy to EC2, RDS and S3
@@ -240,4 +241,43 @@ Headers
     "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
 }
 body 
+```
+
+##Database
+**Product:**
+
+```
+{
+    "id": "761cc07b-aead-4551-8d87-8f50752d162f",
+    "name": "test full",
+    "description": "description",
+    "price": 10.00,
+    "deliveryPrice": 2000.00,
+    "created_At": "2021-08-09T22:51:05.337+00:00",
+    "updated_At": "2021-08-09T22:51:05.337+00:00"
+}
+```
+
+**ProductOption:**
+```
+{
+    "id": "a8376cef-3c59-4e92-9fb5-9d678e9ec274",
+    "productId": "761cc07b-aead-4551-8d87-8f50752d162f",
+    "name": "option name1",
+    "description": "description",
+    "created_At": "2021-08-10T12:02:12.382+00:00",
+    "updated_At": "2021-08-09T22:51:05.337+00:00"
+}
+```
+**User:**
+```
+{
+    "id": 3,
+    "username": "danguyen",
+    "fullName": "Dat Nguyen",
+    "password": "$2a$10$zm1vsUfrbuPTTPfy/a8qu.k0RnygzoplMwmnazyAvl7.kMMotoGGG",
+    "confirmPassword": "",
+    "create_At": "2021-08-10T22:49:49.612+00:00",
+    "updated_At": "2021-08-09T22:51:05.337+00:00"
+}
 ```
