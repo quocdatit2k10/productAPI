@@ -52,6 +52,7 @@ public class Constant {
         public static final String USER_CREATE = "user.create";
         public static final String USER_MAXLEGTH = "user.error.maxlength";
         public static final String USER_CONFIRM_PASSWORD = "user.error.password.confirm";
+        public static final String USER_NAME_PASS_INCORRECT = "user.error.user.password.not.exist";
 
     }
 

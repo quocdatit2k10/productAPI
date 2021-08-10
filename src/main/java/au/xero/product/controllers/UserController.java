@@ -50,7 +50,7 @@ public class UserController {
      * @return Authentication
      */
     @PostMapping("/authenticate")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
 
         try {
             // Check error of setting login request
@@ -69,7 +69,8 @@ public class UserController {
 
             return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
         } catch (Exception ex) {
-            return ResponseHandler.generateResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseHandler.generateResponse(PropertiesUtil.getProperty(
+                    Constant.user.USER_NAME_PASS_INCORRECT), HttpStatus.BAD_REQUEST);
         }
 
     }

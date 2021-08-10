@@ -1,5 +1,8 @@
 package au.xero.product.services;
 
+import au.xero.product.common.Constant;
+import au.xero.product.common.Message;
+import au.xero.product.common.PropertiesUtil;
 import au.xero.product.models.User;
 import au.xero.product.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user==null) new UsernameNotFoundException("User not found");
+        if(user==null) {
+            throw new Message(PropertiesUtil.getProperty(
+                    Constant.user.USER_NAME_PASS_INCORRECT));
+        }
         return user;
     }
 
