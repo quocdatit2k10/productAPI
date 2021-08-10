@@ -43,8 +43,8 @@ API endpoints:
 6. security - checks authentication
 7. services - contains services
 8. validations - validates
-9. application.properties - config database
-10. message.properties - config message
+9. resources/application.properties - config database
+10. resources/message.properties - config message
 ```
 
 ##Deploy to EC2, RDS and S3
@@ -105,6 +105,7 @@ ex: ec2-3-112-40-236.ap-northeast-1.compute.amazonaws.com:8080
 ```
 
 ##Test API
+Token has been setting 300s at file productAPI/src/main/java/au/xero/product/common/Constant.java EXPIRATION_TIME
 1. `POST /register` - registers user(To generate token).
 ```
 POST http://localhost:8080/register
@@ -142,11 +143,101 @@ Headers
 }
 ```
 5. `GET /products/{id}` - gets the project that matches the specified ID - ID is a GUID.
+```
+GET http://localhost:8080/products/173b9526-52ad-4085-b617-09c487df57fb
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+```
 6. `POST /products` - creates a new product.
+```
+POST http://localhost:8080/products
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+body 
+{
+    "name": "test create 1",//Not mull
+    "description": "description",
+    "price": 10,
+    "deliveryPrice": 2000.00
+}
+```
 7. `PUT /products/{id}` - updates a product.
+```
+PUT http://localhost:8080/products/a0c44f7f-991f-4d2a-9512-4ebdf3b7402c
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+body 
+{
+    "name": "test create 1",//Not mull
+    "description": "description",
+    "price": 10,
+    "deliveryPrice": 2000.00
+}
+```
 8. `DELETE /products/{id}` - deletes a product and its options.
+```
+DELETE http://localhost:8080/products/a0c44f7f-991f-4d2a-9512-4ebdf3b7402c
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+```
+
+
 9. `GET /products/{id}/options` - finds all options for a specified product.
+```
+GET http://localhost:8080/products/29f14b3b-1730-46a5-b492-f68a3681b66c/options/
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+```
 10. `GET /products/{id}/options/{optionId}` - finds the specified product option for the specified product.
+```
+GET http://localhost:8080/products/29f14b3b-1730-46a5-b492-f68a3681b66c/options/022a721c-9508-406c-8362-fefdcd0a0d6c
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+```
 11. `POST /products/{id}/options` - adds a new product option to the specified product.
+```
+POST http://localhost:8080/products/29f14b3b-1730-46a5-b492-f68a3681b66c/options
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+body 
+{
+    "name": "option name",
+    "description": "description"
+}
+```
 12. `PUT /products/{id}/options/{optionId}` - updates the specified product option.
+```
+PUT http://localhost:8080/products/29f14b3b-1730-46a5-b492-f68a3681b66c/options/022a721c-9508-406c-8362-fefdcd0a0d6c
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+body 
+{
+    "name": "option name edit",
+    "description": "description"
+}
+```
 13. `DELETE /products/{id}/options/{optionId}` - deletes the specified product option.
+```
+DELETE http://localhost:8080/products/29f14b3b-1730-46a5-b492-f68a3681b66c/options/022a721c-9508-406c-8362-fefdcd0a0d6c
+Headers 
+{
+    "Authorization": Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZ
+}
+body 
+```
