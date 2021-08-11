@@ -66,7 +66,7 @@ public class Constant {
         public static final String SECRET ="SecretKeyToGenJWTs";
         public static final String TOKEN_PREFIX= "Bearer ";
         public static final String HEADER_STRING = "Authorization";
-        public static final long EXPIRATION_TIME = 300000; //300 seconds
+        public static final long EXPIRATION_TIME = 3000000; //3000 seconds
 
     }
 
