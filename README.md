@@ -1,26 +1,29 @@
 # "Product API" Project
-Simple CRUD system with two tables.
+CRUD system for product, product option and user.
+This system uses Java spring boot and runs on AWS.
 
-The system uses Java spring boot and runs on AWS.
-
-## Technical specs
+## Technical Specs
 ```
 1. Language: Java 8
 2. Framework: Spring Boot(Use JPA connect DB, JWT authenticate API)
-3. Mysql version 8.0
-4. AWS: With server EC2, DB RDS Mysql and S3 contain file jar
+3. DB: Mysql version 8.0
+4. Infra: AWS 
+Server: EC2 
+DB: RDS Mysql 
+S3 contains jar file
 ```
 
 ## Tools
 ```
-1. IntelliJIDEA: Codes Java
-2. Mysql workbench: Checks database
+1. Code Java: IntelliJIDEA
+2. Check database: Mysql workbench
+3. Deploy to EC2: Terminal
 ```
 
 ## GitHub
 https://github.com/quocdatit2k10/productAPI/tree/master
 
-## Getting started for applicants
+## Getting started for application
 
 API endpoints:
 
@@ -54,7 +57,7 @@ API endpoints:
 ```
 
 ## Deploy to EC2, RDS and S3
-1. Move to root project create file jar
+1. Move to root project to create jar file
 ```
 1. cd productAPI
 2. install maven: brew install maven
@@ -62,10 +65,10 @@ API endpoints:
    create success: /target/spring-boot-product-api-aws-exe.jar
 ```
 
-2. Upload file jar to S3 
+2. Upload jar file to S3 
 ```
 1. Create folder and make public
-2. Upload file jar
+2. Upload jar file
 3. Copy Object URL: ex https://yourbucketname.s3.ap-southeast-2.amazonaws.com/spring-boot-product-api-aws-exe.jar
 ```
 
@@ -73,9 +76,10 @@ API endpoints:
 ```
 1. Access RDS and create MySQL
 2. Version 8
-3. Set username and passord
-4. Setting security allow port MYSQL/Aurora	TCP	3306	0.0.0.0/0
-                          and  sgr-0e2f5d200e82b3d07	–	All traffic	All	All (access from ec2)
+3. Set username and password
+4. Security settings 
+ allow port MYSQL/Aurora	TCP	3306	0.0.0.0/0, and 
+ sgr-0e2f5d200e82b3d07	–	All traffic	All	All (access from ec2)
 5. Copy Endpoint: product.cmka8gqpfjlr.ap-northeast-1.rds.amazonaws.com
 6. User database workbench access from local
 ```
@@ -84,26 +88,26 @@ API endpoints:
 ```
 1. Create Ec2 Linux 64-bit (x86)
 2. Create new key use to access from local and deploy
-3. Download file .pem
+3. Download pem file
 ```
 
 5. EC2 login and deploy
 ```
-1. Open teminal
-2. cd to folder contain file .pem
+1. Open teminal tool
+2. cd to folder contain pem file
 3. Change permit: chmod 400 yourfilename.pem
 4. Login
    ssh -i "spring-boot-api.pem" ec2-user@ec2-3-112-40-236.ap-northeast-1.compute.amazonaws.com
 5. move to root folder: sudo -i
-6. check version java: java -version
+6. check java version: java -version
 We use java 1.8, so you should install 
 7. Install java 1.8: sudo yum install java-1.8.0
-8. Change defalt version: alternatives --config java
+8. Change default version: alternatives --config java
    enter number to choose version
-9. Copy file jar from S3 to Ec2
+9. Copy jar file from S3 to Ec2
    wget https://productxero.s3.ap-southeast-2.amazonaws.com/spring-boot-product-api-aws-exe.jar
 10. Deploy: java -jar pring-boot-product-api-aws-exe.jar
-*Default java use port 8080, make sure you set security
+*By default java use port 8080, make sure you have correct security settings
 ex: add: sgr-0e86e0d77b86ce95f	IPv4	Custom TCP	TCP	8080
 
 11. Success: copy url ec2-3-112-40-236.ap-northeast-1.compute.amazonaws.com and + port  8080 
