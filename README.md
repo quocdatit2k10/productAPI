@@ -1,7 +1,9 @@
-# Product API
-The system Java spring boot run on AWS
+# "Product API" Project
+Simple CRUD system with two tables.
 
-##Technical
+The system uses Java spring boot and runs on AWS.
+
+## Technical specs
 ```
 1. Language: Java 8
 2. Framework: Spring Boot(Use JPA connect DB, JWT authenticate API)
@@ -9,13 +11,13 @@ The system Java spring boot run on AWS
 4. AWS: With server EC2, DB RDS Mysql and S3 contain file jar
 ```
 
-##Tool
+## Tools
 ```
 1. IntelliJIDEA: Codes Java
 2. Mysql workbench: Checks database
 ```
 
-##GitHub
+## GitHub
 https://github.com/quocdatit2k10/productAPI/tree/master
 
 ## Getting started for applicants
@@ -36,7 +38,7 @@ API endpoints:
 12. `PUT /products/{id}/options/{optionId}` - updates the specified product option.
 13. `DELETE /products/{id}/options/{optionId}` - deletes the specified product option.
 
-## Introduction source code
+## Source code
 ```
 1. main/../common - contains Constant and error/message handler
 2. main/../controllers - contains actions
@@ -51,8 +53,8 @@ API endpoints:
 11. sql - contains file sql
 ```
 
-##Deploy to EC2, RDS and S3
-1. Cd to root project create file jar
+## Deploy to EC2, RDS and S3
+1. Move to root project create file jar
 ```
 1. cd productAPI
 2. install maven: brew install maven
@@ -85,7 +87,7 @@ API endpoints:
 3. Download file .pem
 ```
 
-5. Login Ec2 and deploy
+5. EC2 login and deploy
 ```
 1. Open teminal
 2. cd to folder contain file .pem
@@ -108,7 +110,7 @@ ex: add: sgr-0e86e0d77b86ce95f	IPv4	Custom TCP	TCP	8080
 ex: ec2-3-112-40-236.ap-northeast-1.compute.amazonaws.com:8080
 ```
 
-##Database
+## Database
 **Product:**
 
 ```
@@ -147,8 +149,9 @@ ex: ec2-3-112-40-236.ap-northeast-1.compute.amazonaws.com:8080
 }
 ```
 
-##Test API
-Token has been setting 300s at file productAPI/src/main/java/au/xero/product/common/Constant.java EXPIRATION_TIME
+## Test API
+Token setting: 3000s at file productAPI/src/main/java/au/xero/product/common/Constant.java EXPIRATION_TIME
+
 1. `POST /register` - registers user(To generate token).
 ```
 POST http://localhost:8080/register
