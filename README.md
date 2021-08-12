@@ -23,6 +23,29 @@ S3 contains jar file
 ## GitHub
 https://github.com/quocdatit2k10/productAPI/tree/master
 
+## Create Mysql in location
+```
+1. Create a chema: CREATE SCHEMA `product` ;
+2. You can run the sql from sql/product.sql or it will be ganerated when you run source code
+
+```
+
+## Source code
+```
+1. main/../common - contains Constant and error/message handler
+2. main/../controllers - contains actions
+3. main/../models - contains table
+4. main/../payload - checks login information and responses token
+5. main/../repositories - queries SQL
+6. main/../security - checks authentication
+7. main/../services - contains services
+8. main/../validations - validates
+9. resources/application.properties - config database
+10. resources/message.properties - config message
+11. sql - contains file sql
+```
+
+
 ## Getting started for application
 
 API endpoints:
@@ -40,21 +63,6 @@ API endpoints:
 11. `POST /products/{id}/options` - adds a new product option to the specified product.
 12. `PUT /products/{id}/options/{optionId}` - updates the specified product option.
 13. `DELETE /products/{id}/options/{optionId}` - deletes the specified product option.
-
-## Source code
-```
-1. main/../common - contains Constant and error/message handler
-2. main/../controllers - contains actions
-3. main/../models - contains table
-4. main/../payload - checks login information and responses token
-5. main/../repositories - queries SQL
-6. main/../security - checks authentication
-7. main/../services - contains services
-8. main/../validations - validates
-9. resources/application.properties - config database
-10. resources/message.properties - config message
-11. sql - contains file sql
-```
 
 ## Deploy to EC2, RDS and S3
 1. Move to root project to create jar file
